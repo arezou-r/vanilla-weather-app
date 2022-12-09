@@ -19,13 +19,23 @@
     <div class="container">
         <div class="weather_app_wrapper">
             <div class="weather_app">
+                <form id="search_form" class="mb-3">
+                    <div class="row">
+                        <div class="col-9">
+                            <input type="text" id="city_input" placeholder="Type a city..." class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-3">
+                            <input type="submit" class="btn btn-primary w-100" value="search" />
+                        </div>
+                    </div>
+                </form>
                 <div class="row">
                     <div class="col-12">
                         <div class="overview">
-                            <h1></h1>
+                            <h1 id="city"></h1>
                             <ul>
-                                <li></li>
-                                <li></li>
+                                <li>Last updated: <span id="date"></span></li>
+                                <li id="description"></li>
                             </ul>
                         </div>
                     </div>
@@ -33,23 +43,23 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="clearfix weather_temp">
-                            <img src="" class="float-left" alt="img">
-                            <div class="float-left">
-                                <strong>9</strong>
-                                <span class="units">°C | <a href="#"> °F</a></span>
+                            <img src="" id="icon" class="float-start" alt="">
+                            <div class="float-start">
+                                <strong id="temperature"></strong>
+                                <span class="units"><a href="#" id="celsius_link" class="active"> °C </a> | <a href="#" id="fahrenheit_link"> °F</a></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
                         <ul>
-                            <li></li>
-                            <li></li>
+                            <li>Humidity: <span id="humidity"></span>%</li>
+                            <li>Wind: <span id="wind"></span> km/h</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <small>
-                <a href="#" target="_blank">open-source code</a>
+                <a href="https://github.com/arezou-r/vanilla-weather-app" target="_blank">open-source code</a>
             </small>
         </div>
     </div>
