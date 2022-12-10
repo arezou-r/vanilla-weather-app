@@ -75,3 +75,34 @@ li::first-letter {
 .units .active {
     color: black;
 }
+
+.units a:hover {
+    text-decoration: none;
+}
+
+.weather_forecast {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.forecast_box {
+    color: #000;
+}
+
+.forecast_box .forecast_icon {
+    width: 42px;
+}
+
+.forecast_box .forecast_date {
+    font-size: 16px;
+    opacity: 0.5;
+    margin-bottom: 0;
+}
+
+.forecast_box .forecast_temp {
+    font-size: 13px;
+}
+
+.forecast_box .forcast_temp_min {
+    opacity: 0.5;
+}
