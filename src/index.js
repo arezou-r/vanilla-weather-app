@@ -100,20 +100,5 @@ function handleSubmit(event) {
 
 formElement.addEventListener("submit", handleSubmit);
 
-function showFarTemp(event) {
-    event.preventDefault();
-    let farTemp = Math.round((celsiusTemp * 9) / 5 + 32);
-    tempElement.innerHTML = farTemp;
-}
-
-function showCelsiusTemp(event) {
-    event.preventDefault();
-    tempElement.innerHTML = Math.round(celsiusTemp);
-}
-
-let celsiusTemp = null;
-
-farLinkElement.addEventListener("click", showFarTemp);
-celsiusLinkElement.addEventListener("click", showCelsiusTemp);
 
 search("london");
