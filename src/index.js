@@ -17,9 +17,7 @@ function formatDate(timestamp) {
 }
 
 
-// let apiKey = "7059cb165caa3316bff682d263a01b1e";
-let apiKey2 = "3794cado846aa024tdda83fba00effa9";
-let apiKey = "d57ba12fe2c36fb7d6e4a542d490147c";
+let apiKey = "3794cado846aa024tdda83fba00effa9";
 let cityNameEmelent = document.querySelector("#city");
 let descriptionEmelent = document.querySelector("#description");
 let tempElement = document.querySelector("#temperature");
@@ -29,8 +27,6 @@ let dateElement = document.querySelector("#date");
 let iconElement = document.querySelector("#icon");
 let formElement = document.querySelector("#search_form");
 let cityInputElement = document.querySelector("#city_input");
-let farLinkElement = document.querySelector("#fahrenheit_link");
-let celsiusLinkElement = document.querySelector("#celsius_link");
 
 
 let forecastElement = document.querySelector("#forecast .row");
@@ -42,21 +38,20 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
-    console.log(response)
     let forcastData = response.data.daily;
     let forecastHtml = "";
     forcastData.forEach(function(forecastDay, index) {
         if (index < 6) {
             forecastHtml = forecastHtml + `
                 <div class="col">
-                    <div class="forecast_box">
+                    <a href="#" class="forecast_box">
                         <p class="forecast_date">${formatDay(forecastDay.time)}</p>
                         <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png" class="forecast_icon" alt="img">
                         <div class="forecast_temp">
                             <span class="forcast_temp_max">${Math.round(forecastDay.temperature.maximum)}° </span>
                             <span class="forcast_temp_min">${Math.round(forecastDay.temperature.minimum)}°</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
             `;
         }
@@ -66,30 +61,29 @@ function displayForecast(response) {
 }
 
 function getForecast(cityName) {
-    // let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${cityName}&key=${apiKey2}&units=metric`
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${cityName}&key=${apiKey}&units=metric`
     axios.get(apiUrl).then(displayForecast);
 }
 
 function displayInfo(response) {
-    console.log(response);
-    celsiusTemp = response.data.main.temp;
+    let celsiusTemp = response.data.temperature.current;
     tempElement.innerHTML = Math.round(celsiusTemp);
-    cityNameEmelent.innerHTML = response.data.name;
-    descriptionEmelent.innerHTML = response.data.weather[0].description;
-    humidityEmelent.innerHTML = response.data.main.humidity;
+    cityNameEmelent.innerHTML = response.data.city;
+    descriptionEmelent.innerHTML = response.data.condition.description;
+    humidityEmelent.innerHTML = response.data.temperature.humidity;
     windEmelent.innerHTML = Math.round(response.data.wind.speed);
 
-    dateElement.innerHTML = formatDate(response.data.dt * 1000);
-    iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-    iconElement.setAttribute("alt", `${response.data.weather[0].description}`);
+    dateElement.innerHTML = formatDate(response.data.time * 1000);
 
-    getForecast(response.data.name);
+    iconElement.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`);
+    iconElement.setAttribute("alt", `${response.data.condition.description}`);
+
+    getForecast(response.data.city);
 
 }
 
 function search(city) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayInfo);
 }
 
@@ -100,5 +94,4 @@ function handleSubmit(event) {
 
 formElement.addEventListener("submit", handleSubmit);
 
-
-search("london");
+search("Tehran");
